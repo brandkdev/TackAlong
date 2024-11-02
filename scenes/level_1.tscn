@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://w1ckfl203ara"]
+
+[ext_resource type="Script" path="res://level_1.gd" id="1_ifu5v"]
+[ext_resource type="PackedScene" uid="uid://c1leftq0v55vo" path="res://boats/boat1/boat1.tscn" id="2_51avx"]
+[ext_resource type="Texture2D" uid="uid://0bry8gisqna2" path="res://Assets/environment/water1.png" id="2_w2xmx"]
+[ext_resource type="Shader" path="res://Shaders/water1.gdshader" id="2_wjve2"]
+[ext_resource type="Material" uid="uid://dgad2ijj5w8r0" path="res://Shaders/water2.tres" id="5_uwgp4"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_srqr1"]
+frequency = 0.001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r2slr"]
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_srqr1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4rmml"]
+shader = ExtResource("2_wjve2")
+shader_parameter/distortion = 0.01
+shader_parameter/speed = Vector2(0.5, 0.2)
+shader_parameter/wave_strength = 0.1
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_r2slr")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qmmvb"]
+texture = ExtResource("2_w2xmx")
+texture_region_size = Vector2i(32, 32)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(4.24264, 6.71751, 16, 6.36396, 16, 16, 3.53554, 16)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 6.36396, 16, 6.36396, 16, 16, -16, 16)
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 6.36396, -7.07107, 6.36396, -6.71751, 16, -16, 16)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(5.25, -16, 16, -16, 16, 16, 5, 16)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -6.01041, -16, -6.71751, 16, -16, 16)
+2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, 16, -5.65686, 7.42462, -6.01041, 6.36396, -16)
+3:3/0 = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, 16, -5.65686, -16, -5.3033, -16, -16)
+4:3/0 = 0
+4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -16, -5.65686, -7.42462, -6.01041, -6.36396, -16)
+3:4/0 = 0
+3:4/0/modulate = Color(1, 1, 1, 0.423529)
+
+[sub_resource type="TileSet" id="TileSet_brh7p"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_qmmvb")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_0ro0w"]
+
+[node name="level_1" type="Node2D"]
+script = ExtResource("1_ifu5v")
+
+[node name="Water" type="TileMapLayer" parent="."]
+modulate = Color(1, 1, 1, 0.470588)
+self_modulate = Color(1, 1, 1, 0.470588)
+material = SubResource("ShaderMaterial_4rmml")
+tile_set = SubResource("TileSet_brh7p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("5_uwgp4")
+position = Vector2(560.25, 291.5)
+scale = Vector2(351.5, 265)
+texture = SubResource("CanvasTexture_0ro0w")
+
+[node name="Boat1" parent="." instance=ExtResource("2_51avx")]
+position = Vector2(559, 293)

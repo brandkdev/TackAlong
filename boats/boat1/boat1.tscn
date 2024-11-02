@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1leftq0v55vo"]
+
+[ext_resource type="Texture2D" uid="uid://p1gl06pr3sna" path="res://Assets/Ships Sprites/ship1/ship1.png" id="1_87vbl"]
+[ext_resource type="Script" path="res://boats/boat1/boat_1.gd" id="1_kvcj2"]
+[ext_resource type="Texture2D" uid="uid://cr1xcvxnnllwj" path="res://Assets/Ships Sprites/ship1/boom1.png" id="2_igy6c"]
+[ext_resource type="Texture2D" uid="uid://cqxssdt3jknnw" path="res://Assets/Ships Sprites/ship1/ship1rudder.png" id="3_8oxkj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3xlph"]
+radius = 6.0
+height = 22.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ksb5v"]
+size = Vector2(2, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8t0x8"]
+size = Vector2(10, 3)
+
+[node name="Boat1" type="CharacterBody2D"]
+script = ExtResource("1_kvcj2")
+
+[node name="hull" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_87vbl")
+
+[node name="hull_col" type="CollisionShape2D" parent="." groups=["phys_col"]]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_3xlph")
+
+[node name="rudder" type="Node2D" parent="."]
+rotation = 1.5708
+
+[node name="rudder" type="Sprite2D" parent="rudder"]
+texture = ExtResource("3_8oxkj")
+
+[node name="rudder_water" type="Area2D" parent="rudder"]
+
+[node name="rudder_water_col" type="CollisionShape2D" parent="rudder/rudder_water" groups=["water_col"]]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_ksb5v")
+
+[node name="mainsail" type="Node2D" parent="."]
+rotation = 1.58825
+
+[node name="mainsail_wind" type="Area2D" parent="mainsail"]
+
+[node name="mainsail_wind_col" type="CollisionShape2D" parent="mainsail/mainsail_wind" groups=["wind_col"]]
+position = Vector2(6, -0.5)
+shape = SubResource("RectangleShape2D_8t0x8")
+
+[node name="mainsail" type="Sprite2D" parent="mainsail"]
+texture = ExtResource("2_igy6c")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
